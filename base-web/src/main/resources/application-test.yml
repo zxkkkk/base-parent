@@ -1,0 +1,51 @@
+server:
+  port: 8089  # 设置项目运行的端口号
+
+# 数据库连接配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource  # 使用 Druid 连接池
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 驱动
+    url: jdbc:mysql://localhost:3306/rbac?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8  # 数据库连接URL
+    username: root  # 数据库用户名
+    password: 20040502  # 数据库密码
+
+# MyBatis Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true  # 启用下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # MyBatis 输出 SQL 日志
+  global-config:
+    db-config:
+      update-strategy: not_empty  # 只更新非空字段
+      logic-delete-field: deleted  # 配置全局逻辑删除字段
+      logic-delete-value: 1  # 逻辑删除的值
+      logic-not-delete-value: 0  # 逻辑未删除的值
+
+# Swagger 配置（springdoc）
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html  # Swagger UI 路径
+    tags-sorter: alpha  # 按字母顺序排序标签
+    operations-sorter: alpha  # 按字母顺序排序操作
+  api-docs:
+    path: /v3/api-docs  # API 文档路径
+  group-configs:
+    - group: 'default'  # 默认 API 分组
+      paths-to-match: '/**'  # 匹配所有路径
+      packages-to-scan:
+        - top.zxk.web.sys_role.controller  # 扫描 sys_role 控制器包
+        - top.zxk.web.sys_user.controller  # 扫描 sys_user 控制器包
+        - top.zxk.web.sys_menu.controller  # 扫描 sys_menu 控制器包
+
+# Knife4j 配置
+knife4j:
+  enable: true  # 启用 Knife4j
+  setting:
+    language: zh_cn  # 设置 UI 语言为中文
+  basic:
+    enable: true  # 启用基本认证
+    username: admin  # 设置基本认证用户名
+    password: 123456  # 设置基本认证密码
+
+
